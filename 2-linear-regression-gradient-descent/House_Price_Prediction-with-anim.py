@@ -21,10 +21,10 @@ np.random.seed(42)
 house_price = house_size * 100.0 + np.random.randint(low=20000, high=70000, size=num_house)  
 
 # Plot generated house and size 
-plt.plot(house_size, house_price, "bx")  # bx = blue x
+'''plt.plot(house_size, house_price, "bx")  # bx = blue x
 plt.ylabel("Price")
 plt.xlabel("Size")
-plt.show()
+plt.show()'''
 
 # you need to normalize values to prevent under/overflows.
 def normalize(array):
@@ -124,7 +124,7 @@ with tf.Session() as sess:
     train_price_std = train_price.std()
 
     # Plot the graph
-    plt.rcParams["figure.figsize"] = (10,8)
+    '''plt.rcParams["figure.figsize"] = (10,8)
     plt.figure()
     plt.ylabel("Price")
     plt.xlabel("Size (sq.ft)")
@@ -135,7 +135,7 @@ with tf.Session() as sess:
              label='Learned Regression')
  
     plt.legend(loc='upper left')
-    plt.show()
+    plt.show()'''
 
 
 
@@ -163,6 +163,6 @@ with tf.Session() as sess:
         return line,
 
     ani = animation.FuncAnimation(fig, animate, frames=np.arange(0, fit_plot_idx), init_func=initAnim,
-                                 interval=1000, blit=True)
+                                 interval=100, blit=True)
 
     plt.show()   

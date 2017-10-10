@@ -74,4 +74,65 @@ learning_rate = 0.1
 # 4. define a Gradient descent optimizer that will minimize the loss defined in the operation "cost".
 optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(tf_cost)
 
+# Initializing the variables
+init = tf.global_variables_initializer()
 
+# Launch the graph in the session
+with tf.Session() as sess:
+    sess.run(init)
+
+    # set how often to display training progress and number of training iterations
+    display_every = 2
+    num_training_iter = 50
+
+    # calculate the number of lines to animation
+    fit_num_plots = math.floor(num_training_iter/display_every)
+    # add storage of factor and offset values from each epoch
+    fit_size_factor = np.zeros(fit_num_plots)
+    fit_price_offsets = np.zeros(fit_num_plots)
+    fit_plot_idx = 0    
+
+   # keep iterating the training data
+    for iteration in range(num_training_iter):
+
+        # Fit all training data
+        for (x, y) in zip(train_house_size_norm, train_price_norm):
+            sess.run(optimizer, feed_dict={tf_house_size: x, tf_price: y})
+
+        # Display current status
+        if (iteration + 1) % display_every == 0:
+            c = sess.run(tf_cost, feed_dict={tf_house_size: train_house_size_norm, tf_price:train_price_norm})
+            print("iteration #:", '%04d' % (iteration + 1), "cost=", "{:.9f}".format(c), \
+                "size_factor=", sess.run(tf_size_factor), "price_offset=", sess.run(tf_price_offset))
+            # Save the fit size_factor and price_offset to allow animation of learning process
+            fit_size_factor[fit_plot_idx] = sess.run(tf_size_factor)
+            fit_price_offsets[fit_plot_idx] = sess.run(tf_price_offset)
+            fit_plot_idx = fit_plot_idx + 1
+
+    print("Optimization Finished!")
+    training_cost = sess.run(tf_cost, feed_dict={tf_house_size: train_house_size_norm, tf_price: train_price_norm})
+    print("Trained cost=", training_cost, "size_factor=", sess.run(tf_size_factor), "price_offset=", sess.run(tf_price_offset), '\n')
+
+
+   # Plot of training and test data, and learned regression
+    
+    # get values used to normalized data so we can denormalize data back to its original scale
+    train_house_size_mean = train_house_size.mean()
+    train_house_size_std = train_house_size.std()
+
+    train_price_mean = train_price.mean()
+    train_price_std = train_price.std()
+
+    # Plot the graph
+    plt.rcParams["figure.figsize"] = (10,8)
+    plt.figure()
+    plt.ylabel("Price")
+    plt.xlabel("Size (sq.ft)")
+    plt.plot(train_house_size, train_price, 'go', label='Training data')
+    plt.plot(test_house_size, test_house_price, 'mo', label='Testing data')
+    plt.plot(train_house_size_norm * train_house_size_std + train_house_size_mean,
+             (sess.run(tf_size_factor) * train_house_size_norm + sess.run(tf_price_offset)) * train_price_std + train_price_mean,
+             label='Learned Regression')
+ 
+    plt.legend(loc='upper left')
+    plt.show()

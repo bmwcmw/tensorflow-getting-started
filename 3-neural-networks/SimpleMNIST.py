@@ -8,9 +8,11 @@ from tensorflow.examples.tutorials.mnist import input_data
 '''import input_data'''
 
 # We use the TF helper function to pull down the data from the MNIST site
+# one_hot : return only the highest probability digit
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
 # x is placeholder for the 28 X 28 image data
+# Matrix to array, with float32 = greyscale
 x = tf.placeholder(tf.float32, shape=[None, 784])
 
 # y_ is called "y bar" and is a 10 element vector, containing the predicted probability of each 
@@ -24,10 +26,11 @@ b = tf.Variable(tf.zeros([10]))
 # define our inference model
 y = tf.nn.softmax(tf.matmul(x, W) + b)
 
-# loss is cross entropy
+# loss = cross entropy
 cross_entropy = tf.reduce_mean(
                 tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
 
+## begin training
 # each training step in gradient decent we want to minimize cross entropy
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
@@ -53,5 +56,6 @@ correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 test_accuracy = sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels})
 print("Test Accuracy: {0}%".format(test_accuracy * 100.0))
+# about 90% is not bad, but not good enough
 
 sess.close()

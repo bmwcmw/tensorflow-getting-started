@@ -1,3 +1,8 @@
+#
+#   DeepMNIST.py 
+#   Simple NN to classify handwritten digits from MNIST dataset
+#
+
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 

@@ -47,3 +47,5 @@ https://pypi.python.org/pypi/tensorflow
 If "Not valid wheel" issue, download the wheel to local and rename it to the valid py version
 
 If "module not found", check `pip show tensorflow` and eventually install [Redistribuable Visual C++ pour Visual Studio 2015](https://www.microsoft.com/fr-FR/download/details.aspx?id=48145) that contains MSVCP140.dll etc.
+
+If "ImportError: No module named tensorflow" : run script with right python executable !

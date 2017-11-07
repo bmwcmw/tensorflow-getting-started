@@ -18,6 +18,7 @@
 
     This program is a modified version of https://github.com/eldor4do/Tensorflow-Examples/retraining-example.py
     
+    Get training flowers at http://download.tensorflow.org/example_images/flower_photos.tgz
 """
 
 #   Imports

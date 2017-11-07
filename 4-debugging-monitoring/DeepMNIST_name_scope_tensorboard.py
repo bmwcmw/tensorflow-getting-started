@@ -2,6 +2,8 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
 # Define path to TensorBoard log files
+# > tensorboard --log tb_logs
+# TensorBoard 0.1.8 at http://localhost:6006 (Press CTRL+C to quit)
 logPath = "./tb_logs/"
 
 #   Adds summaries statistics for use in TensorBoard visualization.  
@@ -38,7 +40,7 @@ with tf.name_scope("Input_Reshape"):
 def weight_variable(shape, name=None):
     initial = tf.truncated_normal(shape, stddev=0.1)
     return tf.Variable(initial, name=name)
-
+# put default names to none
 def bias_variable(shape, name=None):
     initial = tf.constant(0.1, shape=shape)
     return tf.Variable(initial, name=name)
@@ -51,8 +53,7 @@ def max_pool_2x2(x, name=None):
     return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
                         strides=[1, 2, 2, 1], padding='SAME', name=name)
 
-# Define the Model
-
+# Define the Model - using name_scope
 # 1st Convolution layer
 with tf.name_scope('Conv1'):
     # 32 features for each 5X5 patch of the image
@@ -146,7 +147,6 @@ for i in range(num_steps):
     batch = mnist.train.next_batch(50)
     _, summary = sess.run([train_step, summarize_all], feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
-
     # Periodic status display
     if i%display_every == 0:
         train_accuracy = accuracy.eval(feed_dict={
@@ -155,7 +155,6 @@ for i in range(num_steps):
         print("step {0}, elapsed time {1:.2f} seconds, training accuracy {2:.3f}%".format(i, end_time-start_time, train_accuracy*100.0))
         # write summary to log
         tbWriter.add_summary(summary,i)
-
 
 # Display summary 
 #     Time to train

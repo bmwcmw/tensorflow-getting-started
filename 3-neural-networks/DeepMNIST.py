@@ -2,6 +2,10 @@
 #   DeepMNIST.py 
 #   Simple NN to classify handwritten digits from MNIST dataset
 #
+#   i7-4790k : 
+#   Total training time for 3000 batches: 242.15 seconds
+#   Test accuracy 98.350%
+#
 
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
@@ -22,8 +26,8 @@ x_image = tf.reshape(x, [-1,28,28,1], name="x_image")
 
 
 # Define helper functions to created weights and baises variables, and convolution, and pooling layers
-#   We are using RELU as our activation function.  These must be initialized to a small positive number 
-#   and with some noise so you don't end up going to zero when comparing diffs
+# We are using RELU as our activation function.  
+# These must be initialized to a small positive number and with some noise so you don't end up going to zero when comparing diffs
 def weight_variable(shape):
     initial = tf.truncated_normal(shape, stddev=0.1)
     return tf.Variable(initial)
@@ -59,11 +63,11 @@ b_conv2 = bias_variable([64])
 h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
 h_pool2 = max_pool_2x2(h_conv2)
 
-# Fully Connected Layer
+# Fully Connected Layer, 64 features, 1024 neurons
 W_fc1 = weight_variable([7 * 7 * 64, 1024])
 b_fc1 = bias_variable([1024])
 
-#   Connect output of pooling layer 2 as input to full connected layer
+# Connect output of pooling layer 2 as input to full connected layer
 h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*64])
 h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 
@@ -79,6 +83,8 @@ b_fc2 = bias_variable([10])
 y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
 
 # Loss measurement
+# y_ : training classification
+# y_conv : model predicts classification
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y_))
 
 # loss optimization

@@ -51,6 +51,9 @@ test_house_price_norm = normalize(test_house_price)
 house_size = tf.placeholder("float", name="house_size")
 price = tf.placeholder("float", name="price")
 
+#Output : 
+# Tensor("house_size:0", dtype=float32)
+# Tensor("price:0", dtype=float32)
 print(house_size)
 print(price)
 
@@ -59,6 +62,9 @@ print(price)
 size_factor = tf.Variable(np.random.randn(), name="size_factor")
 price_offset = tf.Variable(np.random.randn(), name="price_offset")
 
+#Output : 
+# Tensor("house_size:0", dtype=float32)
+# Tensor("price:0", dtype=float32)
 print (size_factor)
 print (price_offset)
 

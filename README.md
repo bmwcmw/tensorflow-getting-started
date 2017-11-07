@@ -25,6 +25,8 @@ or
 ### Install additional libs
     pip3 install matplotlib
 
+    conda install -c conda-forge autopep8 
+
 ### Q&A
 Proxy settings
 

@@ -23,10 +23,10 @@ y_ = tf.placeholder(tf.float32, [None, 10])
 W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
 
-# define our inference model
+# define our inference model = matmul(weight, x) + bias for entire NN
 y = tf.nn.softmax(tf.matmul(x, W) + b)
 
-# loss = cross entropy
+# loss measurement = cross entropy
 cross_entropy = tf.reduce_mean(
                 tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
 

@@ -14,6 +14,14 @@ or
 
     (tensorflow)C:> pip install --ignore-installed --upgrade tensorflow-gpu
 
+### Install from venv
+
+    virtualenv -p python3 venv
+
+    source venv/bin/activate
+    
+    pip install -r requirements.txt
+
 ### Install from Native (>= 3.3)
 
     pip install --ignore-installed --upgrade tensorflow

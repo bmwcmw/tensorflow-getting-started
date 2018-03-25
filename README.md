@@ -1,7 +1,6 @@
 ## Getting Started
 
 ### Install from Anaconda
-
     conda create -n tensorflow python=3.5
 
     activate tensorflow
@@ -13,27 +12,24 @@
 or
 
     (tensorflow)C:> pip install --ignore-installed --upgrade tensorflow-gpu
+    
+or with requirements.txt
+
+    conda create -n venv python=3.5
+
+    activate venv
+    
+    conda install --yes --file requirements.txt
 
 ### Install from venv
-
     virtualenv -p python3 venv
 
     source venv/bin/activate
     
     pip install -r requirements.txt
-
-### Install from Native (>= 3.3)
-
-    pip install --ignore-installed --upgrade tensorflow
-
-or
-
-    pip install --ignore-installed --upgrade tensorflow-gpu
-
-### Install additional libs
-    pip3 install matplotlib
-
-    conda install -c conda-forge autopep8 
+    
+### Run tensorboard
+    python -m tensorboard.main --logdir=tb_logs
 
 ### Q&A
 Proxy settings
@@ -58,4 +54,4 @@ If "Not valid wheel" issue, download the wheel to local and rename it to the val
 
 If "module not found", check `pip show tensorflow` and eventually install [Redistribuable Visual C++ pour Visual Studio 2015](https://www.microsoft.com/fr-FR/download/details.aspx?id=48145) that contains MSVCP140.dll etc.
 
-If "ImportError: No module named tensorflow" : run script with right python executable !
+If "ImportError: No module named tensorflow" : run script with right python executable/env !

@@ -166,7 +166,7 @@ for i in range(num_steps):
         tbWriter.add_summary(summary, i)
 
 # Display summary 
-#     Time to train
+# Time to train
 end_time = time.time()
 print("Total training time for {0} batches: {1:.2f} seconds".format(i + 1, end_time - start_time))
 #     Accuracy on test data

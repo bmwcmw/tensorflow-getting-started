@@ -1,5 +1,7 @@
 ## Getting Started
 
+* tensorflow-gpu needs CUDA driver installed
+
 ### Install from Anaconda
     conda create -n tensorflow python=3.5
 
